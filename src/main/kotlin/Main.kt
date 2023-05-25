@@ -31,7 +31,7 @@ fun main() {
     val f = 4 - 3
     println("The value of f is $f")
     val g = 3f / 4f
-    // Need to make it float otherwise kotlin will throw the decimal and return onlu 0
+    // Need to make it float otherwise kotlin will throw the decimal and return only 0
     println("The value of g is $g")
     val h = 10 % 3
     println("The value of h is $h")
@@ -72,22 +72,105 @@ fun main() {
     val temp2 = if(temp == 2) 2 else 3
     println(temp2)
 
-    println("\n## Null Safety ##")
-    // Allows us to set the value to null, Java doesn't let us do this and throws the null pointer exception
-    val temp3: Int? = null;
-    val number1 = readLine()
-    val number2 = readLine()
-    // Complains saying this could be null
-    // Have to use this !! as number1?.toString() could be null + plus another value and doesn't know what to do
-    // Here we are saying to kotlin that we know its never null
-    val result = number1!!.toInt() + number2!!.toInt()
-    println(result)
+//    println("\n## Null Safety ##")
+//    // Allows us to set the value to null, Java doesn't let us do this and throws the null pointer exception
+//    val temp3: Int? = null;
+//    val number1 = readLine()
+//    val number2 = readLine()
+////     Complains saying this could be null
+////     Have to use this !! as number1?.toString() could be null + plus another value and doesn't know what to do
+////     Here we are saying to kotlin that we know its never null
+//    val result = number1!!.toInt() + number2!!.toInt()
+//    println(result)
+//
+//    // A better approach
+//    val number3 = readLine() ?: "0"
+//    val number4 = readLine() ?: "0"
 
-    // A better approach
-    val number3 = readLine() ?: "0"
-    val number4 = readLine() ?: "0"
+    println("\n## Lists ##")
+    // Immutable Lists and don't need to add type
+    val shoppingList = listOf<String>("Lamborghini", "Penthouse", "Rolex")
+    println(shoppingList[0])
+    // Mutable list -> looks similar to ArrayList
+    val newShoppingList = mutableListOf("Ferrari","House", "Tesla")
+    newShoppingList.add("Bentley")
+    println(newShoppingList[3])
 
+    println("\n## Loops ##")
+    var counter = 0
+    while(counter < newShoppingList.size) {
+        println(newShoppingList[counter])
+        counter++
+    }
 
+    // for each loop
+    println()
+    for(shoppingItem in shoppingList){
+        println(shoppingItem)
+    }
 
+    println()
+    //range option
+    for(i in 1..10){
+        println(i)
+    }
 
+    println("\n## When Expression ##")
+    val x2 = 3
+    when(x2) {
+        in 1..2 -> println("x2 is between 1 and 2")
+        in 3..10 -> println("x2 is between 3 and 10")
+        else -> {
+            println("x2 is not in range 1 to 10")
+        }
+    }
+
+    println("\n## Functions ##")
+    print5Numbers()
+    val even = isEven(2)
+    println(even)
+    println(add())
+    println(add(4, 4))
+    // extension function
+    println(3.isOdd())
+
+    println("\n## Classes ##")
+    val dog = Animal("Dog")
+
+    val cat = Cat()
+    println(cat.meow());
+    // However we can still create an instance of animal, only want to create dogs and etc
+
+    println("\n## Abstract Classes ##")
+    val car = Car()
+    println(car.makeSound())
+
+    println("\n## Anonymous Class ##")
+    // This class is something we can only use in this function and nowhere else
+    val truck = object: Vehicle("truck"){
+        override fun makeSound() {
+            println("Honk")
+        }
+    }
+}
+
+fun print5Numbers(){
+    for(i in 1..5){
+        println(i)
+    }
+}
+
+// Parameter type is not optional
+fun isEven(num: Int): Boolean {
+    return num % 2 == 0
+}
+
+fun add(num1: Int = 0, num2: Int = 0): Int{
+    return num1 + num2
+}
+
+// Extension Functions
+// Extending on class Int
+fun Int.isOdd(): Boolean {
+    return this % 2 == 1
 }
