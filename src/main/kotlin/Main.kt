@@ -152,7 +152,54 @@ fun main() {
             println("Honk")
         }
     }
+
+    println("\n## Exceptions ##")
+    val userInput = readLine() ?: "0"
+    val parsedNumber = try {
+        userInput.toInt()
+    } catch(e: Exception){
+        // Set number to 0 if exception is thrown
+        0
+    }
+    println(parsedNumber)
+
+    println("\n## Lambda Functions ##")
+    val newList = listOf("Kotlin", "is", "fun")
+    // counts only things with items with 3 characters, don't write return
+    val count2 = newList.count { currentString ->
+        currentString.length == 3
+    }
+    println(count2)
+    val count3 = newList.customCount { currentString ->
+        currentString.length == 2
+    }
+    println(count3)
+
+    println("\n## Generics ##")
 }
+// Extension function on list which takes a parameter called function which is a function type that takes a string and returns a boolean.
+// The extension function returns int.
+fun List<String>.customCount(function: (String) -> Boolean): Int{
+    var counter = 0
+    for(string in this){
+        if(function(string)){
+            counter++
+        }
+    }
+    return counter
+}
+
+// Call this on any type instead of just string using T
+fun <T> List<T>.customCountTwo(function: (T) -> Boolean): Int{
+    var counter = 0
+    for(item in this){
+        if(function(item)){
+            counter++
+        }
+    }
+    return counter
+}
+
 
 fun print5Numbers(){
     for(i in 1..5){
